@@ -2,28 +2,27 @@
 
 #include <math.h>
 
-QuadraticSolution solve_equation(double a, double b, double c) {
-  QuadraticSolution result = {-1, NAN, NAN};
-
+quadratic_solution solve_equation(double a, double b, double c) {
+  quadratic_solution solution = {NAN, NAN, -1};
   if (a == 0) {
     if (b == 0) {
-      result.status = (c == 0) ? INFINITE_ROOTS : NO_ROOTS;
-    } else {
-      result.x1 = -c / b;
-      result.status = ONE_ROOT;
+      solution.status = (c == 0) ? INFINITE_ROOTS : NO_ROOTS;
+    } else {  // a==0, b!=0
+      solution.x1 = -c / b;
+      solution.status = ONE_ROOT;
     }
   } else {  // a!=0
     double discriminant = b * b - 4 * a * c;
     if (discriminant < 0) {
-      result.status = NO_ROOTS;
+      solution.status = NO_ROOTS;
     } else if (discriminant == 0) {
-      result.x1 = -b / (2 * a);
-      result.status = ONE_ROOT;
+      solution.x1 = -b / (2 * a);
+      solution.status = ONE_ROOT;
     } else {
-      result.x1 = (-b - sqrt(discriminant)) / (2 * a);
-      result.x2 = (-b + sqrt(discriminant)) / (2 * a);
-      result.status = TWO_ROOTS;
+      solution.x1 = (-b - sqrt(discriminant)) / (2 * a);
+      solution.x2 = (-b + sqrt(discriminant)) / (2 * a);
+      solution.status = TWO_ROOTS;
     }
   }
-  return result;
+  return solution;
 }
