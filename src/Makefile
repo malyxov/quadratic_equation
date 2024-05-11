@@ -1,19 +1,24 @@
+CC = gcc -std=c11
+FLAGS = -Wall -Wextra -Werror
+LIBS = --coverage -lcheck -lm -lpthread -lsubunit 
+NAME = quadratic_equation
+
 all: gcov_report
 
 clean:
-	rm -rf check *.o *.a *.gcno *.html *.gcda
+	rm -rf ${NAME} *.o *.a *.gcno *.html *.gcda
 	rm -rf ./report/
 	rm -rf report.info
 
 clang_test:
-	clang-format -n -style=Google src/*.c src/*.h
+	clang-format -n -style=Google *.c *.h
 
 check:
-	gcc -Wall -Wextra -Werror -o check src/quadratic_equation.c src/tests.c --coverage -lcheck -lm -lpthread -lsubunit 
-	 ./check
+	${CC} ${FLAGS} -o ${NAME} ${NAME}.c tests.c ${LIBS}
+	 ./${NAME}
 
 gcov_report: clean check
 	gcov -o report.info -c -d .
-	lcov -t "check" -o report.info -c -q -d .
+	lcov -t "${NAME}" -o report.info -c -q -d .
 	genhtml -o report report.info
 	open ./report/index.html
