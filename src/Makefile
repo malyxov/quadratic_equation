@@ -3,7 +3,7 @@ FLAGS = -Wall -Wextra -Werror
 LIBS = --coverage -lcheck -lm -lpthread -lsubunit 
 NAME = quadratic_equation
 
-all: gcov_report
+all: check
 
 clean:
 	rm -rf ${NAME} *.o *.a *.gcno *.html *.gcda
