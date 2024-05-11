@@ -14,11 +14,12 @@
 ## Запуск
 
    ```bash
+   cd src/
    make
   ```
 
 ## Makefile
 - `check` - компиляция и тесты (основная цель);
 - `gcov_report` - покрытие кода (файл `index.html` в папке `.\report`);
-- `style` - форматирование кода Google style;
+- `clang_test` - проверка стиля кода Google style;
 - `clean`- очистка каталога.
